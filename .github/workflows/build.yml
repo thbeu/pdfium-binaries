@@ -45,7 +45,7 @@ jobs:
   build:
     outputs:
       artifact: ${{ steps.init.outputs.artifact }}
-    runs-on: ${{ (inputs.target_os == 'ios' || inputs.target_os == 'mac') && 'macos-latest' || inputs.target_os == 'win' && 'windows-2022' || 'ubuntu-20.04' }}
+    runs-on: ${{ (inputs.target_os == 'ios' || inputs.target_os == 'mac') && 'macos-latest' || inputs.target_os == 'win' && 'windows-2019' || 'ubuntu-20.04' }}
     steps:
       - name: Initialize
         id: init
@@ -60,6 +60,11 @@ jobs:
           echo "artifact=$ARTIFACT" >> $GITHUB_OUTPUT
       - name: Checkout this repo
         uses: actions/checkout@v3
+      - name: Set up Python 3.9
+        if: inputs.target_os == 'win'
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
       - name: Workaround for libpcre2 i386 # https://github.com/actions/virtual-environments/issues/4589#issuecomment-1100899313
         if: inputs.target_os == 'android'
         run: |
