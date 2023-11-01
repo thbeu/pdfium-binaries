@@ -33,6 +33,7 @@ case "$OS" in
   win)
     git apply -v "$PATCHES/win/pdfium.patch"
     git -C build apply -v "$PATCHES/win/build.patch"
+    git apply -v "$PATCHES/win/md.patch"
 
     VERSION=${PDFium_VERSION:-0.0.0.0}
     YEAR=$(date +%Y)

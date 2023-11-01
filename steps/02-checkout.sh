@@ -15,6 +15,11 @@ fi
 gclient config --unmanaged "$PDFium_URL" "${CONFIG_ARGS[@]-}"
 echo "target_os = [ '$OS' ]" >> .gclient
 
+case "$OS" in
+  win)
+    echo "visual_studio_version = '2019'" >> .gclient
+    ;;
+esac
 
 # Reset
 for FOLDER in pdfium pdfium/build pdfium/third_party/libjpeg_turbo pdfium/base/allocator/partition_allocator; do

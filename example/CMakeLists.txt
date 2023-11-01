@@ -1,7 +1,11 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8...3.0)
 project(example)
 
 find_package(PDFium REQUIRED)
+
+if(MSVC)
+  add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+endif(MSVC)
 
 add_executable(example example.c)
 target_link_libraries(example pdfium)
